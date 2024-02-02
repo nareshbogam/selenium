@@ -28,15 +28,15 @@ public class SeleniumBase {
 	private static String userName					= null;
 	private static String password					= null;
 	
-	public SeleniumBase() throws Exception 
+	public SeleniumBase(String envDataFileLoc) throws Exception 
 	{
+		envDataFile = envDataFileLoc;
 		initializeAllVariables();
 		initializeDriver();
 	}
 	
 	private void initializeAllVariables() throws Exception
 	{
-		envDataFile						= "D:\\\\SeleniumBase\\\\Selenium_Udbita\\\\src\\\\config.properties";
 		BufferedReader reader			= null;
 		InputStream fStream				= null;
 		
@@ -51,8 +51,7 @@ public class SeleniumBase {
 			IMPLICIT_WAIT			= Integer.parseInt( envProps.getProperty( EnvConstants.IMPLICIT_WAIT, "20" ) );
 			PAGE_LOAD_TIMEOUT		= Integer.parseInt( envProps.getProperty( EnvConstants.PAGE_LOAD_TIMEOUT, "20" ) );
 			BROWSER_INSTALL_PATH	= envProps.getProperty( EnvConstants.BROWSER_INSTALL_PATH );
-			BROWSER					= envProps.getProperty( EnvConstants.BROWSER );
-			
+			BROWSER					= envProps.getProperty( EnvConstants.BROWSER );			
 					
 		}
 		catch( Exception ex )
@@ -107,7 +106,7 @@ public class SeleniumBase {
 		WebDriverManager.edgedriver().setup();
 		driver = new EdgeDriver();
 	}
-	public static void loginToSystem( String userName, String password ) 
+	public void loginToSystem( String userName, String password ) 
 	{	driver.get(APP_URL);		
 	}
 	
