@@ -17,8 +17,8 @@ import org.openqa.selenium.firefox.FirefoxProfile;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class SeleniumBase {
-	public static WebDriver driver 			= null;
-	private static String envDataFile		= null;
+	public WebDriver driver 			= null;
+	protected String envDataFile		= "./TestEnv.properties";
 	private static Properties envProps		= new Properties();	
 	private static String APP_URL			= null;
 	private static int IMPLICIT_WAIT		= 20;
@@ -28,15 +28,15 @@ public class SeleniumBase {
 	private static String userName					= null;
 	private static String password					= null;
 	
-	public SeleniumBase(String envDataFileLoc) throws Exception 
+	public SeleniumBase() throws Exception 
 	{
-		envDataFile = envDataFileLoc;
-		initializeAllVariables();
-		initializeDriver();
+		initializeAllVariables();	
+		
 	}
 	
-	private void initializeAllVariables() throws Exception
+	public void initializeAllVariables() throws Exception
 	{
+		System.out.println("Working Directory = " + System.getProperty("user.dir"));
 		BufferedReader reader			= null;
 		InputStream fStream				= null;
 		
@@ -72,7 +72,7 @@ public class SeleniumBase {
 		}
 	}
 	
-	public static void initializeDriver(){
+	public WebDriver initializeDriver(){
 		String browserName = BROWSER.toLowerCase();
 		
 		switch(browserName)
@@ -84,15 +84,16 @@ public class SeleniumBase {
 		driver.manage().timeouts().implicitlyWait( Duration.ofSeconds(IMPLICIT_WAIT) );
 		driver.manage().timeouts().pageLoadTimeout( Duration.ofSeconds(PAGE_LOAD_TIMEOUT)); 
 		driver.manage().window().maximize();
+		return driver;
 
 	}
 	
-	public static void launchChromeBrowser() {
+	public void launchChromeBrowser() {
 		WebDriverManager.chromedriver().setup();
 		driver = new ChromeDriver();
 	}
 	
-	public static void launchFirefoxBrowser() {
+	public void launchFirefoxBrowser() {
 		WebDriverManager.firefoxdriver().setup();
 		FirefoxProfile profile = new FirefoxProfile();
 		FirefoxOptions options = new FirefoxOptions();
@@ -102,7 +103,7 @@ public class SeleniumBase {
 		
 	}
 
-	public static void launchEdgeeBrowser() {
+	public void launchEdgeeBrowser() {
 		WebDriverManager.edgedriver().setup();
 		driver = new EdgeDriver();
 	}
