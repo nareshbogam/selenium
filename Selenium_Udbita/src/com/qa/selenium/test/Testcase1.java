@@ -1,12 +1,11 @@
 package com.qa.selenium.test;
 
-import org.openqa.selenium.WebDriver;
 import org.testng.annotations.Test;
 import com.qa.selenium.test.pageobjects.TestPageObject;
 
 public class Testcase1 extends CommonTest{
 
-	WebDriver driver;
+	//CommonTest cTest=new CommonTest();
 	TestPageObject test= new TestPageObject(driver);
 	public Testcase1() throws Exception {
 		super();
@@ -19,11 +18,12 @@ public class Testcase1 extends CommonTest{
 		test.clickSignInButton();
 	}
 	@Test
-	public void testCase2() {
-		System.out.println("TEST CASE 1");
+	public void enterUserName() {
+		System.out.println("TEST CASE 2");
+		test.enterUserName("username");
 	}
 	@Test
 	public void testCase3() {
-		System.out.println("TEST CASE 1");
+		System.out.println("TEST CASE 2");
 	}
 }

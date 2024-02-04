@@ -5,6 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import com.qa.selenium.core.SeleniumBase;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,9 +14,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 
-public class SeleniumUtil {
+public class SeleniumUtil{
 
-	protected static WebDriver driver;
+	protected WebDriver driver;
 	
 	protected static int BY_ID						= 0;
 	protected static int BY_NAME					= 1;
@@ -26,9 +28,10 @@ public class SeleniumUtil {
 	public static final int PAGE_RENDER_TIME 		= 2000;
 	public static final int JS_LOAD_TIME 			= 200;
 	
-	public SeleniumUtil( WebDriver driver )
+	public SeleniumUtil( WebDriver driver ) throws Exception 
 	{
-		SeleniumUtil.driver 		= driver;				
+		this.driver 		= driver;	
+		System.out.println(this.driver);
 	}
 	
 	protected void fillInTextBox( String id, String value, boolean clearValue, int byType, boolean useSendKeys )
