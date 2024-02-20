@@ -34,7 +34,7 @@ public class CommonTest extends SeleniumBase{
 	public void closeApplication() {
 		try {
 			System.out.println("Executing closeApplication section and it logs out the application and kills web browser");
-			endSession();
+			//endSession();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
