@@ -13,6 +13,7 @@ public class TestPageObject extends SeleniumUtil{
 	}
 	private static final String	SIGNIN_BUTTON	=	"//a[@data-action='sign in']";
 	private static final String  USER_NAME		=	"#identifierId";
+	
 	public void clickSignInButton() {
 		click(SIGNIN_BUTTON, BY_XPATH);
 	}

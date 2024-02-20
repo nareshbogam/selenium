@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.time.Duration;
 import java.util.Properties;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -18,7 +19,8 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class SeleniumBase {
 	public WebDriver driver 			= null;
-	protected String envDataFile		= "./TestEnv.properties";
+	private static String rootDirectory = System.getProperty("user.dir");	
+	protected String envDataFile		= rootDirectory+"/src/main/resources/TestEnv.properties";
 	private static Properties envProps		= new Properties();	
 	private static String APP_URL			= null;
 	private static int IMPLICIT_WAIT		= 20;
@@ -37,6 +39,7 @@ public class SeleniumBase {
 	public void initializeAllVariables() throws Exception
 	{
 		System.out.println("Working Directory = " + System.getProperty("user.dir"));
+		System.out.println("Working Directory = " + envDataFile);
 		BufferedReader reader			= null;
 		InputStream fStream				= null;
 		
@@ -89,17 +92,35 @@ public class SeleniumBase {
 	}
 	
 	public void launchChromeBrowser() {
-		WebDriverManager.chromedriver().setup();
+		try{
+			WebDriverManager.chromedriver().setup();
+		}
+		catch(WebDriverException we) {
+			System.setProperty("webdriver.chrome.driver", rootDirectory+"/drivers/chromedriver/chromedriver.exe");
+			
+		}
+		finally {
 		driver = new ChromeDriver();
+		}
 	}
 	
 	public void launchFirefoxBrowser() {
 		WebDriverManager.firefoxdriver().setup();
-		FirefoxProfile profile = new FirefoxProfile();
-		FirefoxOptions options = new FirefoxOptions();
-		options.setBinary(BROWSER_INSTALL_PATH);
-		options.setProfile(profile);
-	    driver = new FirefoxDriver(options);
+		
+	    try{
+			WebDriverManager.chromedriver().setup();
+		}
+		catch(WebDriverException we) {
+			System.setProperty("webdriver.chrome.driver", rootDirectory+"/drivers/chromedriver/chromedriver.exe");
+			
+		}
+		finally {
+			FirefoxProfile profile = new FirefoxProfile();
+			FirefoxOptions options = new FirefoxOptions();
+			options.setBinary(BROWSER_INSTALL_PATH);
+			options.setProfile(profile);
+		    driver = new FirefoxDriver(options);
+		}
 		
 	}
 
@@ -108,7 +129,9 @@ public class SeleniumBase {
 		driver = new EdgeDriver();
 	}
 	public void loginToSystem( String userName, String password ) 
-	{	driver.get(APP_URL);		
+	{	driver.get(APP_URL);
+	// enter username
+	// enter password
 	}
 	
 	public void endSession()

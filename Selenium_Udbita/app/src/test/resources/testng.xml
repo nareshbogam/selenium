@@ -4,7 +4,7 @@
   <test thread-count="5" name="Test">
     <classes>
       <class name="com.qa.selenium.test.Testcase1"/>
-       <class name="com.qa.selenium.test.NewTest"/>
+      <class name="com.qa.selenium.test.NewTest"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->
