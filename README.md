@@ -2,7 +2,7 @@
 To setup gradle build, please follow below steps
 1. configure gradle
 
-   radle init
+   gradle init
 
 Select type of project to generate:
   1: basic
